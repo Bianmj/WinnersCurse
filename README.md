@@ -2,7 +2,7 @@
 
 * _BR_squared_ is a function for implementing the BR-squared method (Zhou and Wright, 2016) with summary-level data.
 
-* _Projack_ is a function for implementing the Projack (Faye et al, 2011) method.
+* _Projack_ is a function for implementing the Projack (Faye et al, 2011) method with summary-level data.
 
 
 ### Reference:
