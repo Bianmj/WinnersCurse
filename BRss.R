@@ -1,7 +1,7 @@
 ##bx is the naive estimate and se_x is the corresponding standard error, 
-##num_boot is the number of bootstrap you can specify (1000 or greater is recommended)
-##nobs is the number of observation for the G-X association
-BRss <- function (bx,se_x,num_boot,nobs){
+##num_boot is the number of bootstraps you can specify (1000 or greater is recommended)
+##nobs is the number of observations for the G-X association
+BR_squared <- function (bx,se_x,num_boot,nobs){
   z=bx/se_x
   M <- length(bx)
   boot_diff <- rep(0,M)
@@ -10,13 +10,13 @@ BRss <- function (bx,se_x,num_boot,nobs){
     #The first column is for saving the within-sample bootstrap estimate
     #The second column is for saving the corrected out-of-sample bootstrap estimate
     dd = matrix(NA,M,2)
-    #p_de is vector about the correlation between within-sample bootstrap estimate
+    #p_de is a vector about the correlation between within-sample bootstrap estimate
     #and out-of-sample bootstrap estimate
     p_de <- -(1+2*bx^2)*sqrt(exp(1)^(-1))/(1-bx^2)
     dd[,1]=rnorm(M,mean=bx,sd=sqrt((1-bx^2)/nobs))
     dd[,2]=rnorm(M,mean=bx,sd=sqrt((1-bx^2)/(exp(1)^(-1)*nobs)*(1-p_de^2)))
     chis <- rchisq(M,df=nobs-1)
-    #Simulate the variance of within-sample bootstrap estimate from chi-squared distribution
+    #Simulate the variance of the within-sample bootstrap estimate from a chi-squared distribution
     vd_star <- (1-bx^2)/nobs/(nobs-1) * chis
     #Obtain the z-statistics based on the within-sample estimates
     z_star <- dd[,1]/sqrt(vd_star)
@@ -38,6 +38,6 @@ BRss <- function (bx,se_x,num_boot,nobs){
   #Ensure that the corrected estimate is less than the original estimate in magnitude
   ind1 <- which(abs(c.bx) > abs(bx))
   if(length(ind1) >0){c.bx[ind1] <- bx[ind1]}
-  #Return the corrected estimates for G-X association
+  #Return the corrected estimates for the G-X association
   c.bx
 }
