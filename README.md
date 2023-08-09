@@ -1,4 +1,4 @@
-# Winners_curse
+# Correction for the Winners_curse bias with summary-level data
 
 * _BR_squared_ is a function for implementing the BR-squared method (Zhou and Wright, 2016) with summary-level data.
 
